@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>maps</title>
+	<link rel="stylesheet" type="text/css" href="css/semantic.min.css">
+	<link rel="stylesheet" type="text/css" href="css/style.css">
+	<link rel="stylesheet" type="text/css" href="css/ol.css">
+</head>
+<body>
+	<div class="ui top fixed menu text-center">
+		<h1 class=""> Карти </h1>
+	</div>
+
+	<div class="ui grid divided my-sidebar padded">
+		<div class="five wide column">
+			<div class="ui fluid search selection dropdown">
+			  <input type="hidden" name="country">
+			  <i class="dropdown icon"></i>
+			  <div class="default text">Виберіть місто</div>
+			  <div class="menu">
+			  	<div class="item" data-value="Ternopil">Тернопіль</div>
+			  	<div class="item" data-value="Buchach">Бучач</div>
+			  </div>
+			 </div>
+		</div>
+		<div class="eleven wide column" id="map">
+		</div>
+	</div>
+
+	<script src="https://code.jquery.com/jquery-3.1.1.min.js"
+  integrity="sha256-hVVnYaiADRTO2PzUGmuLJr8BLUSjGIZsDYGmIJLv2b8="
+  crossorigin="anonymous"></script>
+	<script type="text/javascript" src="js/semantic.min.js"></script>
+	<script type="text/javascript" src="js/ol.js"></script>
+
+	<script type="text/javascript" src="js/main.js"></script>
+
+	<script>
+	  new ol.Map({
+	    layers: [
+	      new ol.layer.Tile({source: new ol.source.OSM()})
+	    ],
+	    view: new ol.View({
+	      center: [0, 0],
+	      zoom: 2
+	    }),
+	    target: 'map'
+	  });
+
+	  let address = encodeURI('Бучач');
+
+	  $.get( 'http://nominatim.openstreetmap.org/search?format=json&q='+address, function(data){
+       console.log(data);
+    });
+	</script>
+</body>
+</html>
