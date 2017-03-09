@@ -14,7 +14,7 @@
 	<div class="ui grid divided my-sidebar padded">
 		<div class="five wide column">
 			<div class="ui fluid search selection dropdown">
-			  <input type="hidden" name="country">
+			  <input type="hidden" name="country" id="search-container">
 			  <i class="dropdown icon"></i>
 			  <div class="default text">Виберіть місто</div>
 			  <div class="menu">
@@ -34,6 +34,7 @@
 	<script type="text/javascript" src="js/ol.js"></script>
 
 	<script type="text/javascript" src="js/main.js"></script>
+	<script src="js/search.js"></script>
 
 	<script>
 	  new ol.Map({
@@ -49,9 +50,11 @@
 
 	  let address = encodeURI('Бучач');
 
-	  $.get( 'http://nominatim.openstreetmap.org/search?format=json&q='+address, function(data){
+	// 'http://nominatim.openstreetmap.org/search?format=json&q='+address 
+	  $.get( 'http://nominatim.openstreetmap.org/search?format=json&q='+ address, function(data){
        console.log(data);
     });
+
 	</script>
 </body>
 </html>
