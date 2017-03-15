@@ -13,12 +13,36 @@ function debounce(func, wait, immediate) {
 	};
 };
 
+
+function printResult(dataArray, distElem) {
+	distElem = $(distElem);
+	distElem.empty();
+
+	if (dataArray) {
+		dataArray.forEach(
+				function (item) {
+					// console.log(item);
+
+					var div = document.createElement('div');
+					div.classList.add('item');
+					div.dataset.value = item.display_name;
+					div.dataset.lon = item.lon;
+					div.dataset.lat = item.lat;
+					div.innerHTML = item.display_name;
+
+					distElem.append(div);
+				}
+			);
+	}
+}
+
 $('input.search').keyup(debounce(
 		function () {
-			var address = encodeURI(this.value);
-			console.log(this.value);
-			$.get( 'http://nominatim.openstreetmap.org/search?format=json&q='+ address, function(data){
-				console.log(data[0].display_name);
+			var 
+				address = encodeURI(this.value);
+			// console.log(address);
+			$.get( 'http://nominatim.openstreetmap.org/search?format=json&addressdetails=1&limit=3&q='+ address, function(data){
+				printResult(data, '#search-result');
 			});
 		},
 		 150));
