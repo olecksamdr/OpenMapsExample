@@ -1,3 +1,5 @@
+'use strict';
+
 function debounce(func, wait, immediate) {
 	var timeout;
 	return function() {
@@ -11,7 +13,7 @@ function debounce(func, wait, immediate) {
 		timeout = setTimeout(later, wait);
 		if (callNow) func.apply(context, args);
 	};
-};
+}
 
 
 function printResult(dataArray, distElem) {
@@ -28,6 +30,9 @@ function printResult(dataArray, distElem) {
 					div.dataset.value = item.display_name;
 					div.dataset.lon = item.lon;
 					div.dataset.lat = item.lat;
+					div.dataset.boundingbox = JSON.stringify(item.boundingbox);
+					// console.log(JSON.parse(JSON.stringify(item.boundingbox)));
+					// console.log(JSON.stringify(item.boundingbox));
 					div.innerHTML = item.display_name;
 
 					distElem.append(div);
@@ -38,11 +43,12 @@ function printResult(dataArray, distElem) {
 
 $('input.search').keyup(debounce(
 		function () {
-			var 
+			var
 				address = encodeURI(this.value);
 			// console.log(address);
 			$.get( 'http://nominatim.openstreetmap.org/search?format=json&addressdetails=1&limit=3&q='+ address, function(data){
 				printResult(data, '#search-result');
+				console.log(data);
 			});
 		},
 		 150));

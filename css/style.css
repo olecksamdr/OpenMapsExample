@@ -6,6 +6,10 @@
 	height: 100%;
 }
 
+#map {
+	height: 100%;	
+}
+
 .ui.fluid.dropdown {
 	margin-top: 30px;
 }
